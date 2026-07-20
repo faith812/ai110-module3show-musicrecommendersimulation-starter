@@ -29,6 +29,18 @@ Some prompts to answer:
 
 You can include a simple diagram or bullet list if helpful.
 
+Include your finalized "Algorithm Recipe" and a brief note on any potential biases you expect (e.g., "This system might over-prioritize genre, ignoring great songs that match the user's mood").
+
+---
+
+
+In the How The System Works section, write a short paragraph explaining your understanding of how real-world recommendations work and what your version will prioritize. List the specific features your Song and UserProfile objects will use in your simulation.
+
+
+Real-world recommendations use collaborative filtering, content-based filtering, and often a combination of these two techniques along with other methods. Collaborative filtering allows systems to give new recommendations that users may enjoy based on other users with similar preferences. For example, you and your sister both liked Young Sheldon and Kim's Convenience on Netflix. If your sister also liked KPop Demon Hunters, Netflix may recommend that same movie to you. Content-based filtering allows systems to give recommendations based on the user's preferences about the actual item. For example, Spotify may recommend more lofi songs or songs of a similar nature if you liked a lofi song. Spotify uses a combination of techniques for their recommendation system. Spotify's Discover Weekly uses collaborative filtering to find users with similar music tastes and based on the listening behavior analysis, it recommends new songs. Spotify also analayzes the features (e.g. energy, danceability, etc.) of each song (content-based filtering), and uses Natural Lanaguage Processing to study media related to songs and artists (in order to gain an understanding on what area songs/artists can be categorized into). 
+
+In my simulation, the system will prioritize content-based filtering. The specific features that will be used are genre, mood, energy, and acousticness. 
+
 ---
 
 ## Getting Started
