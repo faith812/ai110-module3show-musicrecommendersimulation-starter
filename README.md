@@ -31,6 +31,14 @@ You can include a simple diagram or bullet list if helpful.
 
 Include your finalized "Algorithm Recipe" and a brief note on any potential biases you expect (e.g., "This system might over-prioritize genre, ignoring great songs that match the user's mood").
 
+Algorithm Recipe:
+Genre match: +2.0 if exact match, else 0
+Mood match: +1.0 if exact match, else 0
+Energy similarity: +1.0 x (1 - abs(song.energy - target_energy))
+Acousticness similarity: +1.0 x (1 - abs(song.acousticness - target_acousticness))
+
+The genre feature has the most weight compared to the other features. Therefore, this system may recommend songs based on genre first and give less priority to the other three features. 
+
 ---
 
 
@@ -82,14 +90,30 @@ You can add more tests in `tests/test_recommender.py`.
 
 Paste a sample of your recommender's output here as a text block so a reader can see what it produces:
 
-```
-# e.g.:
-# User profile: genre=indie, mood=chill, energy=low
-# Recommendations:
-#   1. ...
-#   2. ...
-#   3. ...
-```
+User profile: genre=pop, mood=happy, energy=0.8, acousticness=0.2
+
+Recommendations:
+
+  1. Sunrise City - Score: 4.96
+
+ Because: genre match (+2.0), mood match (+1.0), energy similarity (+0.98), acousticness similarity (+0.98)
+
+  2. Gym Hero - Score: 3.72
+
+ Because: genre match (+2.0), energy similarity (+0.87), acousticness similarity (+0.85)
+
+  3. Rooftop Lights - Score: 2.81
+
+ Because: mood match (+1.0), energy similarity (+0.96), acousticness similarity (+0.85)
+
+  4. Night Drive Loop - Score: 1.93
+
+ Because: energy similarity (+0.95), acousticness similarity (+0.98)
+
+  5. Pulse Horizon - Score: 1.84
+
+ Because: energy similarity (+0.92), acousticness similarity (+0.92)
+
 
 **Screenshot or video** *(optional)*: <!-- Insert a screenshot or demo video link here -->
 
