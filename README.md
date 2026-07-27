@@ -115,7 +115,465 @@ Recommendations:
  Because: energy similarity (+0.92), acousticness similarity (+0.92)
 
 
-**Screenshot or video** *(optional)*: <!-- Insert a screenshot or demo video link here -->
+---------------------
+
+
+Sample Output when added edge case user profiles:
+
+
+=== Baseline ===
+User profile: genre=pop, mood=happy, energy=0.8, acousticness=0.2
+
+Recommendations:
+
+  1. Sunrise City - Score: 4.96
+
+ Because: genre match (+2.0), mood match (+1.0), energy similarity (+0.98), acousticness similarity (+0.98)
+
+  2. Gym Hero - Score: 3.72
+
+ Because: genre match (+2.0), energy similarity (+0.87), acousticness similarity (+0.85)
+
+  3. Rooftop Lights - Score: 2.81
+
+ Because: mood match (+1.0), energy similarity (+0.96), acousticness similarity (+0.85)
+
+  4. Night Drive Loop - Score: 1.93
+
+ Because: energy similarity (+0.95), acousticness similarity (+0.98)
+
+  5. Pulse Horizon - Score: 1.84
+
+ Because: energy similarity (+0.92), acousticness similarity (+0.92)
+
+=== Conflicting genre/mood vs. energy/acoustic ===
+User profile: genre=classical, mood=angry, energy=0.95, acousticness=0.0
+
+Recommendations:
+
+  1. Iron Verdict - Score: 2.95
+
+ Because: mood match (+1.0), energy similarity (+0.98), acousticness similarity (+0.97)
+
+  2. Autumn Elegy - Score: 2.40
+
+ Because: genre match (+2.0), energy similarity (+0.35), acousticness similarity (+0.05)
+
+  3. Gym Hero - Score: 1.93
+
+ Because: energy similarity (+0.98), acousticness similarity (+0.95)
+
+  4. Storm Runner - Score: 1.86
+
+ Because: energy similarity (+0.96), acousticness similarity (+0.90)
+
+  5. Concrete Kingdom - Score: 1.82
+
+ Because: energy similarity (+0.90), acousticness similarity (+0.92)
+
+=== Impossible genre/mood combo ===
+User profile: genre=metal, mood=chill, energy=0.9, acousticness=0.9
+
+Recommendations:
+
+  1. Iron Verdict - Score: 3.06
+
+ Because: genre match (+2.0), energy similarity (+0.93), acousticness similarity (+0.13)
+
+  2. Library Rain - Score: 2.41
+
+ Because: mood match (+1.0), energy similarity (+0.45), acousticness similarity (+0.96)
+
+  3. Spacewalk Thoughts - Score: 2.36
+
+ Because: mood match (+1.0), energy similarity (+0.38), acousticness similarity (+0.98)
+
+  4. Midnight Coding - Score: 2.33
+
+ Because: mood match (+1.0), energy similarity (+0.52), acousticness similarity (+0.81)
+
+  5. Wildflower Path - Score: 1.48
+
+ Because: energy similarity (+0.58), acousticness similarity (+0.90)
+
+=== Out-of-range energy (> 1.0) ===
+User profile: genre=pop, mood=happy, energy=1.8, acousticness=0.0
+
+Recommendations:
+
+  1. Sunrise City - Score: 3.84
+
+ Because: genre match (+2.0), mood match (+1.0), energy similarity (+0.02), acousticness similarity (+0.82)
+
+  2. Gym Hero - Score: 3.08
+
+ Because: genre match (+2.0), energy similarity (+0.13), acousticness similarity (+0.95)
+
+  3. Rooftop Lights - Score: 1.61
+
+ Because: mood match (+1.0), energy similarity (+-0.04), acousticness similarity (+0.65)
+
+  4. Iron Verdict - Score: 1.14
+
+ Because: energy similarity (+0.17), acousticness similarity (+0.97)
+
+  5. Storm Runner - Score: 1.01
+
+ Because: energy similarity (+0.11), acousticness similarity (+0.90)
+
+=== Out-of-range energy (< 0.0) ===
+User profile: genre=jazz, mood=relaxed, energy=-0.5, acousticness=1.0
+
+Recommendations:
+
+  1. Coffee Shop Stories - Score: 4.02
+
+ Because: genre match (+2.0), mood match (+1.0), energy similarity (+0.13), acousticness similarity (+0.89)
+
+  2. Autumn Elegy - Score: 1.15
+
+ Because: energy similarity (+0.20), acousticness similarity (+0.95)
+
+  3. Spacewalk Thoughts - Score: 1.14
+
+ Because: energy similarity (+0.22), acousticness similarity (+0.92)
+
+  4. Library Rain - Score: 1.01
+
+ Because: energy similarity (+0.15), acousticness similarity (+0.86)
+
+  5. Focus Flow - Score: 0.88
+
+ Because: energy similarity (+0.10), acousticness similarity (+0.78)
+
+=== Unknown genre/mood values ===
+User profile: genre=polka, mood=bored, energy=0.5, acousticness=0.0
+
+Recommendations:
+
+  1. Concrete Kingdom - Score: 1.57
+
+ Because: energy similarity (+0.65), acousticness similarity (+0.92)
+
+  2. Velvet Whisper - Score: 1.55
+
+ Because: energy similarity (+1.00), acousticness similarity (+0.55)
+
+  3. Night Drive Loop - Score: 1.53
+
+ Because: energy similarity (+0.75), acousticness similarity (+0.78)
+
+  4. Gym Hero - Score: 1.52
+
+ Because: energy similarity (+0.57), acousticness similarity (+0.95)
+
+  5. Sunrise City - Score: 1.50
+
+ Because: energy similarity (+0.68), acousticness similarity (+0.82)
+
+=== Case-mismatched genre/mood ===
+User profile: genre=Pop, mood=Happy, energy=0.8, acousticness=0.0
+
+Recommendations:
+
+  1. Concrete Kingdom - Score: 1.87
+
+ Because: energy similarity (+0.95), acousticness similarity (+0.92)
+
+  2. Gym Hero - Score: 1.82
+
+ Because: energy similarity (+0.87), acousticness similarity (+0.95)
+
+  3. Sunrise City - Score: 1.80
+
+ Because: energy similarity (+0.98), acousticness similarity (+0.82)
+
+  4. Iron Verdict - Score: 1.80
+
+ Because: energy similarity (+0.83), acousticness similarity (+0.97)
+
+  5. Pulse Horizon - Score: 1.80
+
+ Because: energy similarity (+0.92), acousticness similarity (+0.88)
+
+=== Near-tie scoring ===
+User profile: genre=lofi, mood=chill, energy=0.385, acousticness=0.785
+
+Recommendations:
+
+  1. Midnight Coding - Score: 4.89
+
+ Because: genre match (+2.0), mood match (+1.0), energy similarity (+0.97), acousticness similarity (+0.92)
+
+  2. Library Rain - Score: 4.89
+
+ Because: genre match (+2.0), mood match (+1.0), energy similarity (+0.96), acousticness similarity (+0.93)
+
+  3. Focus Flow - Score: 3.98
+
+ Because: genre match (+2.0), energy similarity (+0.98), acousticness similarity (+0.99)
+
+  4. Spacewalk Thoughts - Score: 2.76
+
+ Because: mood match (+1.0), energy similarity (+0.90), acousticness similarity (+0.86)
+
+  5. Wildflower Path - Score: 1.89
+
+ Because: energy similarity (+0.91), acousticness similarity (+0.98)
+
+=== No genre/mood preference (control) ===
+User profile: genre=, mood=, energy=0.5, acousticness=0.5
+
+Recommendations:
+
+  1. Velvet Whisper - Score: 1.95
+
+ Because: energy similarity (+1.00), acousticness similarity (+0.95)
+
+  2. Backroad Memories - Score: 1.85
+
+ Because: energy similarity (+0.95), acousticness similarity (+0.90)
+
+  3. Island Sunbeam - Score: 1.78
+
+ Because: energy similarity (+0.88), acousticness similarity (+0.90)
+
+  4. Midnight Coding - Score: 1.71
+
+ Because: energy similarity (+0.92), acousticness similarity (+0.79)
+
+  5. Wildflower Path - Score: 1.68
+
+ Because: energy similarity (+0.98), acousticness similarity (+0.70)
+
+----------------------
+
+ Sample Output when implemented Weight Shift: 
+
+ === Baseline ===
+User profile: genre=pop, mood=happy, energy=0.8, acousticness=0.2
+
+Recommendations:
+
+  1. Sunrise City - Score: 4.94
+
+ Because: genre match (+1.0), mood match (+1.0), energy similarity (+1.96), acousticness similarity (+0.98)
+
+  2. Rooftop Lights - Score: 3.77
+
+ Because: mood match (+1.0), energy similarity (+1.92), acousticness similarity (+0.85)
+
+  3. Gym Hero - Score: 3.59
+
+ Because: genre match (+1.0), energy similarity (+1.74), acousticness similarity (+0.85)
+
+  4. Night Drive Loop - Score: 2.88
+
+ Because: energy similarity (+1.90), acousticness similarity (+0.98)
+
+  5. Concrete Kingdom - Score: 2.78
+
+ Because: energy similarity (+1.90), acousticness similarity (+0.88)
+
+=== Conflicting genre/mood vs. energy/acoustic ===
+User profile: genre=classical, mood=angry, energy=0.95, acousticness=0.0
+
+Recommendations:
+
+  1. Iron Verdict - Score: 3.93
+
+ Because: mood match (+1.0), energy similarity (+1.96), acousticness similarity (+0.97)
+
+  2. Gym Hero - Score: 2.91
+
+ Because: energy similarity (+1.96), acousticness similarity (+0.95)
+
+  3. Storm Runner - Score: 2.82
+
+ Because: energy similarity (+1.92), acousticness similarity (+0.90)
+
+  4. Pulse Horizon - Score: 2.74
+
+ Because: energy similarity (+1.86), acousticness similarity (+0.88)
+
+  5. Concrete Kingdom - Score: 2.72
+
+ Because: energy similarity (+1.80), acousticness similarity (+0.92)
+
+=== Impossible genre/mood combo ===
+User profile: genre=metal, mood=chill, energy=0.9, acousticness=0.9
+
+Recommendations:
+
+  1. Iron Verdict - Score: 2.99
+
+ Because: genre match (+1.0), energy similarity (+1.86), acousticness similarity (+0.13)
+
+  2. Library Rain - Score: 2.86
+
+ Because: mood match (+1.0), energy similarity (+0.90), acousticness similarity (+0.96)
+
+  3. Midnight Coding - Score: 2.85
+
+ Because: mood match (+1.0), energy similarity (+1.04), acousticness similarity (+0.81)
+
+  4. Spacewalk Thoughts - Score: 2.74
+
+ Because: mood match (+1.0), energy similarity (+0.76), acousticness similarity (+0.98)
+
+  5. Storm Runner - Score: 2.18
+
+ Because: energy similarity (+1.98), acousticness similarity (+0.20)
+
+=== Out-of-range energy (> 1.0) ===
+User profile: genre=pop, mood=happy, energy=1.8, acousticness=0.0
+
+Recommendations:
+
+  1. Sunrise City - Score: 2.86
+
+ Because: genre match (+1.0), mood match (+1.0), energy similarity (+0.04), acousticness similarity (+0.82)
+
+  2. Gym Hero - Score: 2.21
+
+ Because: genre match (+1.0), energy similarity (+0.26), acousticness similarity (+0.95)
+
+  3. Rooftop Lights - Score: 1.57
+
+ Because: mood match (+1.0), energy similarity (+-0.08), acousticness similarity (+0.65)
+
+  4. Iron Verdict - Score: 1.31
+
+ Because: energy similarity (+0.34), acousticness similarity (+0.97)
+
+  5. Storm Runner - Score: 1.12
+
+ Because: energy similarity (+0.22), acousticness similarity (+0.90)
+
+=== Out-of-range energy (< 0.0) ===
+User profile: genre=jazz, mood=relaxed, energy=-0.5, acousticness=1.0
+
+Recommendations:
+
+  1. Coffee Shop Stories - Score: 3.15
+
+ Because: genre match (+1.0), mood match (+1.0), energy similarity (+0.26), acousticness similarity (+0.89)
+
+  2. Spacewalk Thoughts - Score: 1.36
+
+ Because: energy similarity (+0.44), acousticness similarity (+0.92)
+
+  3. Autumn Elegy - Score: 1.35
+
+ Because: energy similarity (+0.40), acousticness similarity (+0.95)
+
+  4. Library Rain - Score: 1.16
+
+ Because: energy similarity (+0.30), acousticness similarity (+0.86)
+
+  5. Focus Flow - Score: 0.98
+
+ Because: energy similarity (+0.20), acousticness similarity (+0.78)
+
+=== Unknown genre/mood values ===
+User profile: genre=polka, mood=bored, energy=0.5, acousticness=0.0
+
+Recommendations:
+
+  1. Velvet Whisper - Score: 2.55
+
+ Because: energy similarity (+2.00), acousticness similarity (+0.55)
+
+  2. Island Sunbeam - Score: 2.36
+
+ Because: energy similarity (+1.76), acousticness similarity (+0.60)
+
+  3. Backroad Memories - Score: 2.30
+
+ Because: energy similarity (+1.90), acousticness similarity (+0.40)
+
+  4. Night Drive Loop - Score: 2.28
+
+ Because: energy similarity (+1.50), acousticness similarity (+0.78)
+
+  5. Concrete Kingdom - Score: 2.22
+
+ Because: energy similarity (+1.30), acousticness similarity (+0.92)
+
+=== Case-mismatched genre/mood ===
+User profile: genre=Pop, mood=Happy, energy=0.8, acousticness=0.0
+
+Recommendations:
+
+  1. Concrete Kingdom - Score: 2.82
+
+ Because: energy similarity (+1.90), acousticness similarity (+0.92)
+
+  2. Sunrise City - Score: 2.78
+
+ Because: energy similarity (+1.96), acousticness similarity (+0.82)
+
+  3. Pulse Horizon - Score: 2.72
+
+ Because: energy similarity (+1.84), acousticness similarity (+0.88)
+
+  4. Gym Hero - Score: 2.69
+
+ Because: energy similarity (+1.74), acousticness similarity (+0.95)
+
+  5. Storm Runner - Score: 2.68
+
+ Because: energy similarity (+1.78), acousticness similarity (+0.90)
+
+=== Near-tie scoring ===
+User profile: genre=lofi, mood=chill, energy=0.385, acousticness=0.785
+
+Recommendations:
+
+  1. Midnight Coding - Score: 4.86
+
+ Because: genre match (+1.0), mood match (+1.0), energy similarity (+1.93), acousticness similarity (+0.92)
+
+  2. Library Rain - Score: 4.85
+
+ Because: genre match (+1.0), mood match (+1.0), energy similarity (+1.93), acousticness similarity (+0.93)
+
+  3. Focus Flow - Score: 3.96
+
+ Because: genre match (+1.0), energy similarity (+1.97), acousticness similarity (+0.99)
+
+  4. Spacewalk Thoughts - Score: 3.66
+
+ Because: mood match (+1.0), energy similarity (+1.79), acousticness similarity (+0.86)
+
+  5. Coffee Shop Stories - Score: 2.87
+
+ Because: energy similarity (+1.97), acousticness similarity (+0.90)
+
+=== No genre/mood preference (control) ===
+User profile: genre=, mood=, energy=0.5, acousticness=0.5
+
+Recommendations:
+
+  1. Velvet Whisper - Score: 2.95
+
+ Because: energy similarity (+2.00), acousticness similarity (+0.95)
+
+  2. Backroad Memories - Score: 2.80
+
+ Because: energy similarity (+1.90), acousticness similarity (+0.90)
+
+  3. Island Sunbeam - Score: 2.66
+
+ Because: energy similarity (+1.76), acousticness similarity (+0.90)
+
+  4. Wildflower Path - Score: 2.66
+
+ Because: energy similarity (+1.96), acousticness similarity (+0.70)
+
+  5. Midnight Coding - Score: 2.63
+
+ Because: energy similarity (+1.84), acousticness similarity (+0.79)
 
 ---
 
@@ -126,6 +584,8 @@ Use this section to document the experiments you ran. For example:
 - What happened when you changed the weight on genre from 2.0 to 0.5
 - What happened when you added tempo or valence to the score
 - How did your system behave for different types of users
+
+I ran the Weight Shift experiment (Double the importance of energy and half the importance of genre). When I ran this experiment, the recommendation output was generally similar to the original output. However, some songs swapped places in their rankings or new songs were included in the recommendation list. Since the energy weight was doubled, that feature held more weight and priority when recommending songs. 
 
 ---
 

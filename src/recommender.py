@@ -38,13 +38,37 @@ class Recommender:
     def __init__(self, songs: List[Song]):
         self.songs = songs
 
+    def _score(self, user: UserProfile, song: Song) -> Tuple[float, List[str]]:
+        score = 0.0
+        reasons = []
+
+        if song.genre == user.favorite_genre:
+            score += 2.0
+            reasons.append("genre match (+2.0)")
+
+        if song.mood == user.favorite_mood:
+            score += 1.0
+            reasons.append("mood match (+1.0)")
+
+        energy_points = 1.0 * (1 - abs(song.energy - user.target_energy))
+        score += energy_points
+        reasons.append(f"energy similarity (+{energy_points:.2f})")
+
+        target_acousticness = 1.0 if user.likes_acoustic else 0.0
+        acousticness_points = 1.0 * (1 - abs(song.acousticness - target_acousticness))
+        score += acousticness_points
+        reasons.append(f"acousticness similarity (+{acousticness_points:.2f})")
+
+        return score, reasons
+
     def recommend(self, user: UserProfile, k: int = 5) -> List[Song]:
-        # TODO: Implement recommendation logic
-        return self.songs[:k]
+        scored = [(song, *self._score(user, song)) for song in self.songs]
+        ranked = sorted(scored, key=lambda entry: entry[1], reverse=True)
+        return [song for song, _, _ in ranked[:k]]
 
     def explain_recommendation(self, user: UserProfile, song: Song) -> str:
-        # TODO: Implement explanation logic
-        return "Explanation placeholder"
+        _, reasons = self._score(user, song)
+        return ", ".join(reasons)
 
 def load_songs(csv_path: str) -> List[Dict]:
     """Loads songs from a CSV file into a list of dicts with numeric fields converted."""
